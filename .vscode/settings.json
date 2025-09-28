@@ -1,0 +1,14 @@
+{
+    "iar.enabled": true,
+    "iarvsc.gdbServer": "D:\\BaiduNetdiskDownload\\STM32_Servers\\ST-LINK_gdbserver\\ST-LINK_gdbserver.bat",
+    "iarvsc.gdb": "C:\\\\Program Files (x86)\\\\GNU Arm Embedded Toolchain\\\\10 2021.10\\\\bin\\\\arm-none-eabi-gdb.exe",
+    "iarvsc.device": "stm32f407ze",
+    "files.associations": {
+        "task_tempmatrix.h": "c",
+        "freertos.h": "c",
+        "SPI_SD.C": "cpp",
+        "usart.h": "c",
+        "stm32f4xx.h": "c"
+    },
+    "files.encoding": "gbk"
+}

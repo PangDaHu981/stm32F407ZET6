@@ -1,0 +1,69 @@
+{
+    "version" : "0.2.0",
+                "configurations" : [
+                    {
+                        "name": "Debug GDBServer",
+                        "type": "cppdbg",
+                        "request": "launch",
+                        "program": "${workspaceFolder}\\Project\\Debug\\Exe\\Project.out",
+                        "stopAtEntry": true,
+                        "cwd": "${workspaceFolder}",
+                        "externalConsole": true,
+                        "MIMode": "gdb",
+                        "miDebuggerPath": "${config:iarvsc.gdb}",
+                        "debugServerPath": "${config:iarvsc.gdbServer}",
+                        "debugServerArgs": "-if swd -singlerun -strict -endian little -speed auto -port 3333 -device ${config:iarvsc.device} -vd -strict -halt",
+                        "serverStarted": "Connected\\ to\\ target",
+                        "serverLaunchTimeout": 5000,
+                        "filterStderr": false,
+                        "filterStdout": true,
+                        "setupCommands": [
+                            {
+                                "text": "target remote localhost:61234"
+                            },
+                            {
+                                "text": "monitor flash breakpoints = 1"
+                            },
+                            {
+                                "text": "monitor flash download = 1"
+                            },
+                            {
+                                "text": "monitor reset"
+                            },
+                            {
+                                "text": "load ${workspaceFolder}\\Project\\Debug\\Exe\\Project.out"
+                            },
+                            {
+                                "text": "monitor reset"
+                            }
+                        ]
+                    },
+                    {
+                        "name" : "stlink debug",
+                        "type" : "cppdbg",
+                        "request" : "launch",
+                        "targetArchitecture" : "arm",
+                        "program" : "${workspaceFolder}\\Project\\Debug\\Exe\\Project.out",
+                        "stopAtEntry" : false,
+                        "cwd" : "${workspaceFolder}",
+                        "environment" : [],
+                        "externalConsole" : true,
+                        "MIMode" : "gdb",
+                        "miDebuggerPath" : "C:\\Program Files (x86)\\GNU Arm Embedded Toolchain\\10 2021.10\\bin\\arm-none-eabi-gdb.exe",
+                        "setupCommands" : [
+                            {
+                                "text" : "file ${workspaceFolder}\\Project\\Debug\\Exe\\Project.out"
+                            },
+                            {
+                                "text" : "target remote localhost:61234"
+                            },
+                            {
+                                "text" : "monitor reset"
+                            },
+                            {
+                                "text" : "load"
+                            }
+                        ]
+                    }
+                ]
+}

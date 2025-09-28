@@ -1,0 +1,16 @@
+Debug
+Release
+settings
+*.dep
+.vscode/*
+!.vscode/*.json
+.VSCodeCounter/
+.vscode/c_cpp_properties.json
+.vscode/sftp.json
+*.diff
+*.html
+*.js
+*.css
+*.png
+*.gif
+.vscode/iar-vsc.json

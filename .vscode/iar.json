@@ -1,0 +1,6 @@
+{
+    "version": 1,
+    "path": "C:\\Program Files (x86)\\IAR Systems\\Embedded Workbench 8.3\\",
+    "project": "${workspaceFolder}\\10_Project\\Project IAR8.3.ewp",
+    "config": "Debug"
+}
