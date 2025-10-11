@@ -10,7 +10,7 @@
 #include "crc.h"
 #include "led.h"
 #include "stdio.h"
-#include "W25Q64.h"
+#include "SPI_Flash.h"
 #include "Version.h"
 
 IAP_StructTypedef IAP;                   // IAP–≈œ¢

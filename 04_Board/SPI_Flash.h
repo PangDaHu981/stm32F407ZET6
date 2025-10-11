@@ -1,8 +1,10 @@
-#ifndef __W25Q64_H__
-#define __W25Q64_H__
+#ifndef __SPI_FLASH_H__
+#define __SPI_FLASH_H__
 
-#include "stm32f4xx.h"
-#include "spi.h"
+
+#include "SoftwareSPI.h"
+#include "led.h"
+
 
 // Ö¸Áî±í
 #define W25QX_WriteEnable      0x06
@@ -24,26 +26,30 @@
 
 #define W25QXX_BLOCK_SIZE (4096)
 
-#define W25QXX_CS_RCCCLOCK RCC_AHB1Periph_GPIOC
-#define W25QXX_CS_PORT     GPIOC
-#define W25QXX_CS_PIN      GPIO_Pin_4
+#define W25QXX_CS_RCCCLOCK RCC_AHB1Periph_GPIOF
+#define W25QXX_CS_PORT     GPIOF
+#define W25QXX_CS_PIN      GPIO_Pin_6
 
 #define W25QXX_CS_0                                    \
     {                                                  \
+        W25QXX_Bus_Take();                             \
         GPIO_ResetBits(W25QXX_CS_PORT, W25QXX_CS_PIN); \
+        LED_On(FATFS);                                 \
     }
 #define W25QXX_CS_1                                  \
     {                                                \
+        LED_Off(FATFS);                              \
         GPIO_SetBits(W25QXX_CS_PORT, W25QXX_CS_PIN); \
+        W25QXX_Bus_Give();                           \
     }
 
-// #define W25QXX_SPI_Init()                            \
-//     {                                                \
-//         SoftwareSPI_Init(W25QXX_SPI, SPI_MODE_0, 1); \
-//     }
-//#define W25QXX_ReadWriteByte(data) SoftwareSPI_ReadWriteByte(W25QXX_SPI, data)
-// #define W25QXX_Bus_Take()          SoftwareSPI_Take(W25QXX_SPI)
-// #define W25QXX_Bus_Give()          SoftwareSPI_Give(W25QXX_SPI)
+#define W25QXX_SPI_Init()                            \
+    {                                                \
+        SoftwareSPI_Init(W25QXX_SPI, SPI_MODE_0, 1); \
+    }
+#define W25QXX_ReadWriteByte(data) SoftwareSPI_ReadWriteByte(W25QXX_SPI, data)
+#define W25QXX_Bus_Take()          SoftwareSPI_Take(W25QXX_SPI)
+#define W25QXX_Bus_Give()          SoftwareSPI_Give(W25QXX_SPI)
 
 typedef enum {
 
@@ -58,7 +64,7 @@ typedef enum {
 
 } SPI_FlashWorkState;
 
-void     W25QXX_SPI_Init(void);                                               // ³õÊ¼»¯W25Qxx
+void     W25QXX_Init(void);                                               // ³õÊ¼»¯W25Qxx
 uint8_t  W25QXX_ReadSR(void);                                             // ¶ÁSR¼Ä´æÆ÷
 void     W25QXX_Write_Enable(void);                                       // W25Qxx Ð´Ê¹ÄÜ
 void     W25QXX_Write_Disable(void);                                      // W25Qxx Ð´½ûÖ¹
@@ -71,12 +77,9 @@ void     W25QXX_EraseSector(uint32_t address);                            // ²Á³
 void     W25QXX_WaitBusy(void);                                           // Ã¦Î»µÈ´ý
 void     W25QXX_PowerDown(void);                                          // ½øÈëµôµçÄ£Ê½
 void     W25QXX_WAKEUP(void);                                             // »½ÐÑ
-void W25QXX_EraseSector(uint32_t address);
-void W25Q64_Erase64K(uint32_t addr);
-void W25Q64_PageWrite(uint8_t *wbuff, uint16_t pageNB);
-// void W25Q64_EraseSlotBySlotIndex(uint8_t slot_index);
-void W25Q64_EraseSlot(uint8_t slot_index);
-void W25Q64_TestSlot(uint8_t slot_index);
 
-void W25Q64_TestAddr(uint32_t addr);
+
+void W25Q64_PageWrite(uint8_t *wbuff, uint16_t pageNB);
+void W25Q64_Erase64K(uint32_t addr) ;
+void W25Q64_EraseSlot(uint8_t slot_index) ;
 #endif

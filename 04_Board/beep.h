@@ -3,9 +3,9 @@
 
 #include "stm32f4xx.h"
 
-#define BEEP_RCCCLOCK RCC_AHB1Periph_GPIOF
-#define BEEP_PORT     GPIOF
-#define BEEP_PIN      GPIO_Pin_6
+#define BEEP_RCCCLOCK RCC_AHB1Periph_GPIOG
+#define BEEP_PORT     GPIOG
+#define BEEP_PIN      GPIO_Pin_8
 
 void Beep_Init(void);  //≥ı ºªØ
 

@@ -7,7 +7,7 @@
 #include "delay.h"
 #include "Board_Flash.h"
 #include "FM24CL64.h"
-#include "W25Q64.h"
+#include "SPI_Flash.h"
 
 typedef void (*pFunction)(void);
 

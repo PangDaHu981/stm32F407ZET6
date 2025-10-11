@@ -282,7 +282,7 @@
                 <option>
                     <name>CCAllowList</name>
                     <version>1</version>
-                    <state>11111110</state>
+                    <state>00000000</state>
                 </option>
                 <option>
                     <name>CCDebugInfo</name>
@@ -369,7 +369,7 @@
                 </option>
                 <option>
                     <name>CCOptLevel</name>
-                    <state>3</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>CCOptStrategy</name>
@@ -378,7 +378,7 @@
                 </option>
                 <option>
                     <name>CCOptLevelSlave</name>
-                    <state>3</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>CompilerMisraRules98</name>
@@ -2193,16 +2193,22 @@
             <name>$PROJ_DIR$\..\04_Board\RS706.h</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\04_Board\SoftwareSPI.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\04_Board\SoftwareSPI.h</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\04_Board\SPI_Flash.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\04_Board\SPI_Flash.h</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\04_Board\sys_led.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\04_Board\sys_led.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\04_Board\W25Q64.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\04_Board\W25Q64.h</name>
         </file>
     </group>
     <group>

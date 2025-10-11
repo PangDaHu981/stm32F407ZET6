@@ -8,7 +8,9 @@
         "freertos.h": "c",
         "SPI_SD.C": "cpp",
         "usart.h": "c",
-        "stm32f4xx.h": "c"
+        "stm32f4xx.h": "c",
+        "spi.h": "c",
+        "spi_flash.h": "c"
     },
     "files.encoding": "gbk"
 }

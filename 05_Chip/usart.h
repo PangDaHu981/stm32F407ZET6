@@ -1,43 +1,50 @@
 #ifndef __USART_H
 #define __USART_H
+
 #include "stdarg.h"
 #include "stdio.h"
 #include "stm32f4xx.h"
 #include "string.h"
 
-#define USART1_RX_SIZE 2048   // 定义接收缓冲区总大小
-#define USART1_TX_SIZE 2048   // 定义发送缓冲区总大小
-#define USART1_REC_LEN 256    // 定义单次最大接收字节数 256
-#define NUM            10     // 定义接收缓冲段个数
+/* 缓冲定义 */
+#define UART_TX_SIZE     2048
+#define UART_RX_SIZE     2048
+#define UART_RX_SEG_LEN  256
+#define UART_RX_SEG_NUM  10
 
-#define USART1_RD_PORT_RCC RCC_AHB1Periph_GPIOC /* 串口收发使能端口时钟 */
-#define USART1_RD_PORT     GPIOC                /* 串口收发使能端口 */
-#define USART1_RD_PIN      GPIO_Pin_1           /* 串口收发使能引脚 */
-#define USART1_RD_RECV     Bit_SET              /* 串口收发使能 接收模式 高电平 */
-#define USART1_RD_SEND     Bit_RESET            /* 串口收发使能 发送模式 低电平 */
+/* 485方向控制端口 */
+#define UART_RD_PORT_RCC RCC_AHB1Periph_GPIOC
+#define UART_RD_PORT     GPIOC
+#define UART_RD_PIN      GPIO_Pin_1
+#define UART_RD_RECV     Bit_SET
+#define UART_RD_SEND     Bit_RESET
 
+/* 接收结构体 */
 typedef struct {
     uint8_t* start;
     uint8_t* end;
-} UCB_URxBufptr;   // 用来记录一段缓冲区的首尾地址
+} UCB_URxBufptr;
 
 typedef struct {
-    u16            URxCount;          // 记录接收缓冲区内数据量
-    UCB_URxBufptr  URxDataPtr[NUM];   // 缓冲段数组，数组内容为每一段数据的首尾地址
-    UCB_URxBufptr* URxDataIN;         // 写位置
-    UCB_URxBufptr* URxDataOUT;        // 读位置
-    UCB_URxBufptr* URxDataEND;        // 最后一段缓冲区的地址，用来判断是否需要回头
-} UCB_ControlBlock;                   // USART Control Block	用来记录接收到的每一部分数据的首尾位置和读写位置
+    uint16_t        URxCount;
+    UCB_URxBufptr   URxDataPtr[UART_RX_SEG_NUM];
+    UCB_URxBufptr*  URxDataIN;
+    UCB_URxBufptr*  URxDataOUT;
+    UCB_URxBufptr*  URxDataEND;
+} UCB_ControlBlock;
 
-void USART1_Init(u32 baudrate);      // 串口1初始化，baudrate设置波特率
-void DMA_USART1_RX_Init(void);       // 串口1的DMA初始化
-void U1Rx_Ptr_Init(void);            // USART Control Block中各项初始化
-void u1_printf(char* format, ...);   // 串口1打印函数
+/* 全局变量 */
+extern uint8_t UART_RX_BUF[UART_RX_SIZE];
+extern uint8_t UART_TX_BUF[UART_TX_SIZE];
+extern UCB_ControlBlock U_CB;
 
+/* 初始化与发送 */
+void UART_Combo_Init(uint32_t baudrate);
+void DMA_UART_TX_Init(void);
+void DMA_UART_RX_Init(void);
+void UART_Rx_Ptr_Init(void);
 
-
-extern UCB_ControlBlock U1_CB;                           // 声明为外部变量，在stm32f10x_it.c中的USART1_IRQHandler函数中用到
-extern uint8_t               USART1_RX_BUF[USART1_RX_SIZE];   // 声明为外部变量，在stm32f10x_it.c中的USART1_IRQHandler函数中用到
-
+/* printf重映射支持 */
+int fputc(int ch, FILE* f);
 
 #endif

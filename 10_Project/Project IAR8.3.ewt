@@ -2450,16 +2450,22 @@
             <name>$PROJ_DIR$\..\04_Board\RS706.h</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\04_Board\SoftwareSPI.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\04_Board\SoftwareSPI.h</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\04_Board\SPI_Flash.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\04_Board\SPI_Flash.h</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\04_Board\sys_led.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\04_Board\sys_led.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\04_Board\W25Q64.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\04_Board\W25Q64.h</name>
         </file>
     </group>
     <group>
