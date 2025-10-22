@@ -31,8 +31,8 @@ int main(void) {
     //W25QXX_SPI_Init();
     /* 初始化铁电存储器 */
     FM24CL64_Init();
-    printf("\r\n串口1初始化成功\r\n");
-    Beep_Init();
+    u4_printf("\r\n串口1初始化成功\r\n");
+    //Beep_Init();
     AT24C02_ReadOTAInfo();   // 从24C02读取数据到OTA_Info结构体
     BootLoader_Branch();     // 分支判断
     while (1) {
@@ -43,30 +43,30 @@ int main(void) {
     //     GPIO_SetBits(RS706_PORT, RS706_PIN);
     // }
         // 串口1接收
-        if (U_CB.URxDataOUT != U_CB.URxDataIN) {                                                                      // 检查串口接收缓冲区是否有新数据
-            Bootloader_Event_Process(U_CB.URxDataOUT->start, (U_CB.URxDataOUT->end - U_CB.URxDataOUT->start + 1));   // 根据新数据处理对应任务
-            U_CB.URxDataOUT++;                                                                                         // 读指针后移
-            if (U_CB.URxDataOUT == U_CB.URxDataEND) {
-                U_CB.URxDataOUT = &U_CB.URxDataPtr[0];   // 如果已经到缓冲末尾，则重新回到缓冲区头部
+        if (U2_CB.URxDataOUT != U2_CB.URxDataIN) {                                                                      // 检查串口接收缓冲区是否有新数据
+            Bootloader_Event_Process(U2_CB.URxDataOUT->start, (U2_CB.URxDataOUT->end - U2_CB.URxDataOUT->start + 1));   // 根据新数据处理对应任务
+            U2_CB.URxDataOUT++;                                                                                         // 读指针后移
+            if (U2_CB.URxDataOUT == U2_CB.URxDataEND) {
+                U2_CB.URxDataOUT = &U2_CB.URxDataPtr[0];   // 如果已经到缓冲末尾，则重新回到缓冲区头部
             }
         }
         /*发送C*/
         if (BootStateFlag & IAP_XModem_C_FLAG) {   // 串口发送XModem协议的起始C
             if (UpdateA.XModem_Timer_Count >= 100) {
-                printf("C");
+                u4_printf("C");
                 UpdateA.XModem_Timer_Count = 0;
             }
             UpdateA.XModem_Timer_Count++;
         }
 if (BootStateFlag & UPDATA_A_FLAG) {
-    printf("本次需要更新的大小：%d字节\r\n", OTA_Info.FirmwareLen[UpdateA.Updata_A_from_W25Q64_Num]);
+    u4_printf("本次需要更新的大小：%d字节\r\n", OTA_Info.FirmwareLen[UpdateA.Updata_A_from_W25Q64_Num]);
 
     if ((OTA_Info.FirmwareLen[UpdateA.Updata_A_from_W25Q64_Num] % 4) == 0) {
         STM32_EraseFlash(STM32_APP_START_SECTOR, STM32_APP_SECTOR_NUM);
-        printf("A区已擦除\r\n");
+        u4_printf("A区已擦除\r\n");
 
         uint32_t slot_base = GetSlotBaseAddr(UpdateA.Updata_A_from_W25Q64_Num);
-        printf("Addr = 0x%06X\r\n", slot_base);
+        u4_printf("Addr = 0x%06X\r\n", slot_base);
         uint32_t fwlen     = OTA_Info.FirmwareLen[UpdateA.Updata_A_from_W25Q64_Num];
         uint32_t full_blk  = fwlen / STM32_PAGE_SIZE;   // 完整的 1K 块数
         uint32_t remain    = fwlen % STM32_PAGE_SIZE;   // 剩余不足 1K 的部分
@@ -106,11 +106,11 @@ if (BootStateFlag & UPDATA_A_FLAG) {
             OTA_Info.OTA_flag = 0;
             AT24C02_WriteOTAInfo();
         }
-        printf("A区更新完成，马上重启系统！\r\n");
+        u4_printf("A区更新完成，马上重启系统！\r\n");
         delay_ms(100);
         NVIC_SystemReset();
     } else {
-        printf("待更新APP长度错误！\r\n");
+        u4_printf("待更新APP长度错误！\r\n");
         BootStateFlag &= ~(UPDATA_A_FLAG);
     }
 }

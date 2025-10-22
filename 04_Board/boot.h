@@ -9,7 +9,7 @@
 #include "FM24CL64.h"
 #include "SPI_Flash.h"
 
-typedef void (*pFunction)(void);
+ typedef void (*pFunction)(void);
 
 #define SLOT_SIZE   0x80000 //(512 * 1024)      // 每个APP区大小512KB
 #define SLOT_NUM    2
